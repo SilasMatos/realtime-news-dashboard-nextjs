@@ -1,18 +1,10 @@
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ExternalLink, Calendar, User } from "lucide-react"
+import { NewsArticle } from "@/types/news"
 
 interface NewsCardProps {
-  article: {
-    source: { id: string; name: string }
-    author: string
-    title: string
-    description: string
-    url: string
-    urlToImage: string
-    publishedAt: string
-    content: string
-  }
+  article: NewsArticle
   featured?: boolean
 }
 
@@ -55,13 +47,13 @@ export function NewsCard({ article, featured = false }: NewsCardProps) {
                 {article.title}
               </h2>
 
-              <p className="text-muted-foreground leading-relaxed mb-6 text-pretty">{article.description}</p>
+              <p className="text-muted-foreground leading-relaxed mb-6 text-pretty">{article.description || 'Descrição não disponível'}</p>
             </div>
 
             <div className="flex items-center justify-between pt-4 border-t border-border/50">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <User className="h-4 w-4" />
-                <span>{article.author}</span>
+                <span>{article.author || 'Autor não informado'}</span>
               </div>
 
               <a
@@ -106,12 +98,12 @@ export function NewsCard({ article, featured = false }: NewsCardProps) {
           {article.title}
         </h3>
 
-        <p className="text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-3 flex-1">{article.description}</p>
+        <p className="text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-3 flex-1">{article.description || 'Descrição não disponível'}</p>
 
         <div className="flex items-center justify-between pt-4 border-t border-border/50 mt-auto">
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <User className="h-3 w-3" />
-            <span className="truncate">{article.author}</span>
+            <span className="truncate">{article.author || 'Autor não informado'}</span>
           </div>
 
           <a

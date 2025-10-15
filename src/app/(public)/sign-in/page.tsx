@@ -1,7 +1,7 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
-import { useLogin } from '@/hooks/useMutation'
+import { useLogin } from '@/hooks/use-mutation'
 import { LoginMutation } from '@/types/mutations-types'
 import { useRouter } from 'next/navigation'
 import { Mail, Lock, LogIn, GanttChartSquare } from 'lucide-react'

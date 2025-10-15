@@ -24,7 +24,7 @@ export function NewsHeader() {
 
             <div className="flex items-center gap-2">
               <div className="h-8 w-8 rounded-full bg-primary" />
-              <span className="font-serif text-xl font-light tracking-wide">newsly.</span>
+              <span className="font-serif text-xl font-light tracking-wide ">matos<span className="italic">news.</span> </span>
             </div>
           </div>
 

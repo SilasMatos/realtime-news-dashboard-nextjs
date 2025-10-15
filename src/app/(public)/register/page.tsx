@@ -1,7 +1,7 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
-import { useRegister } from '@/hooks/useMutation'
+import { useRegister } from '@/hooks/use-mutation'
 import { useRouter } from 'next/navigation'
 import {
   User,

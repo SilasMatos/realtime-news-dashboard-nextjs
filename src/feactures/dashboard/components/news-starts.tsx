@@ -1,10 +1,9 @@
 import { Card } from "@/components/ui/card"
 import { Newspaper, TrendingUp, Clock } from "lucide-react"
+import { NewsArticle } from "@/types/news"
 
 interface NewsStatsProps {
-  articles: Array<{
-    publishedAt: string
-  }>
+  articles: NewsArticle[]
 }
 
 export function NewsStats({ articles }: NewsStatsProps) {

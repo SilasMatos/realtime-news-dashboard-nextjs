@@ -1,18 +1,8 @@
 import { NewsCard } from "@/feactures/dashboard/components/news-card"
-
-interface Article {
-  source: { id: string; name: string }
-  author: string
-  title: string
-  description: string
-  url: string
-  urlToImage: string
-  publishedAt: string
-  content: string
-}
+import { NewsArticle } from "@/types/news"
 
 interface NewsListProps {
-  articles: Article[]
+  articles: NewsArticle[]
 }
 
 export function NewsList({ articles }: NewsListProps) {
