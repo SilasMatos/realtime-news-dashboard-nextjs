@@ -1,3 +1,4 @@
+import { Navbar } from "@/components/navbar-app"
 
 export default function PrivateLayout({
   children
@@ -8,7 +9,7 @@ export default function PrivateLayout({
 
         <div className="flex h-screen flex-col bg-[#f2f2f2]">
     
- 
+          <Navbar />
             {children}
      
         </div>

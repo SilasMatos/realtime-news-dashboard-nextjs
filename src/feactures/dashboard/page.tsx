@@ -1,4 +1,3 @@
-import { NewsHeader } from "@/feactures/dashboard/components/news-header"
 import { NewsList } from "@/feactures/dashboard/components/news-list"
 import { NewsStats } from "@/feactures/dashboard/components/news-starts"
 import { UseQueryOptions } from "@tanstack/react-query"
@@ -10,8 +9,8 @@ export default async function NewsPage() {
     const newsResponse = await NewsAPIService.getTechNews()
     
     return (
-      <div className="min-h-screen bg-background">
-        <NewsHeader />
+
+
 
         <main className="container mx-auto px-4 py-8 lg:py-12">
           <div className="mb-12">
@@ -27,15 +26,14 @@ export default async function NewsPage() {
      
           <NewsList articles={newsResponse.articles} />
         </main>
-      </div>
+
     )
   } catch (error) {
     console.error('Erro ao buscar notícias:', error)
     
     return (
-      <div className="min-h-screen bg-background">
-        <NewsHeader />
-        
+  
+    
         <main className="container mx-auto px-4 py-8 lg:py-12">
           <div className="mb-12">
             <h1 className="font-serif text-4xl lg:text-6xl font-light tracking-tight text-balance mb-4">
@@ -46,7 +44,7 @@ export default async function NewsPage() {
             </p>
           </div>
         </main>
-      </div>
+
   )
 
   }

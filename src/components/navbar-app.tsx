@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useState } from "react"
 
-export function NewsHeader() {
+export function Navbar() {
   const [isDark, setIsDark] = useState(false)
 
   const toggleTheme = () => {
@@ -29,6 +29,9 @@ export function NewsHeader() {
           </div>
 
           <nav className="hidden lg:flex items-center gap-8">
+            <a href="#" className="text-sm font-medium hover:text-primary transition-colors">
+              Home
+            </a>
             <a href="#" className="text-sm font-medium hover:text-primary transition-colors">
               Technology
             </a>
