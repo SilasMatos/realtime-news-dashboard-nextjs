@@ -48,6 +48,7 @@ import { SearchCommand } from '@/components/search-command'
 interface MegaMenuCategory {
   icon: React.ReactNode
   titleKey: string
+  href?: string
   items: { labelKey: string; href: string }[]
 }
 
@@ -114,16 +115,19 @@ function useMegaMenuCategories(): {
       {
         icon: <FlaskConical className="size-5 text-primary" />,
         titleKey: 'navbar.science',
+        href: '/?category=science',
         items: []
       },
       {
         icon: <Heart className="size-5 text-primary" />,
         titleKey: 'navbar.health',
+        href: '/?category=health',
         items: []
       },
       {
         icon: <Landmark className="size-5 text-primary" />,
         titleKey: 'navbar.politics',
+        href: '/?category=politics',
         items: []
       }
     ]
@@ -200,21 +204,33 @@ export function Navbar() {
                       )
                       .map(cat => (
                         <div key={cat.titleKey}>
-                          <div className="flex items-center gap-2 px-2 py-1">
-                            {cat.icon}
-                            <span className="text-sm font-semibold">
-                              {t(cat.titleKey)}
-                            </span>
-                          </div>
-                          {cat.items.map(item => (
+                          {cat.href && cat.items.length === 0 ? (
                             <Link
-                              key={item.labelKey}
-                              href={item.href}
-                              className="block rounded-md px-4 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+                              href={cat.href}
+                              className="flex items-center gap-2 rounded-md px-2 py-2 text-sm font-semibold transition-colors hover:bg-accent hover:text-accent-foreground"
                             >
-                              {t(item.labelKey)}
+                              {cat.icon}
+                              {t(cat.titleKey)}
                             </Link>
-                          ))}
+                          ) : (
+                            <>
+                              <div className="flex items-center gap-2 px-2 py-1">
+                                {cat.icon}
+                                <span className="text-sm font-semibold">
+                                  {t(cat.titleKey)}
+                                </span>
+                              </div>
+                              {cat.items.map(item => (
+                                <Link
+                                  key={item.labelKey}
+                                  href={item.href}
+                                  className="block rounded-md px-4 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+                                >
+                                  {t(item.labelKey)}
+                                </Link>
+                              ))}
+                            </>
+                          )}
                           <Separator className="my-2" />
                         </div>
                       ))}
@@ -246,7 +262,7 @@ export function Navbar() {
                         {categories.more.map(cat => (
                           <Link
                             key={cat.titleKey}
-                            href={`/?category=${t(cat.titleKey).toLowerCase()}`}
+                            href={cat.href ?? '/'}
                             className="flex items-center gap-2 text-sm transition-colors hover:text-primary"
                           >
                             {cat.icon}

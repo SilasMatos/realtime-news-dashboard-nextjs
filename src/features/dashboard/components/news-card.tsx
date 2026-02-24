@@ -26,43 +26,44 @@ export function NewsCard({ article, featured = false }: NewsCardProps) {
 
   if (featured) {
     return (
-      <Card className="overflow-hidden border-border/50 hover:border-primary/50 transition-all duration-300 group">
-        <div className="grid lg:grid-cols-2 gap-0">
-          <div className="relative h-64 lg:h-full overflow-hidden">
+      <Card className="overflow-hidden border-border/50 transition-all duration-300 hover:border-primary/50 group">
+        <div className="grid gap-0 lg:grid-cols-2">
+          <div className="relative aspect-video lg:aspect-auto lg:min-h-[320px] overflow-hidden">
             <Image
               src={article.urlToImage || '/placeholder.svg'}
               alt={article.title}
               fill
-              className="object-cover group-hover:scale-105 transition-transform duration-500"
+              priority
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
           </div>
 
-          <div className="p-8 lg:p-10 flex flex-col justify-between">
+          <div className="flex flex-col justify-between p-6 sm:p-8 lg:p-10">
             <div>
-              <div className="flex items-center gap-3 mb-4">
+              <div className="mb-4 flex flex-wrap items-center gap-3">
                 <Badge variant="secondary" className="font-medium">
                   {article.source.name}
                 </Badge>
-                <span className="text-xs text-muted-foreground flex items-center gap-1">
-                  <Calendar className="h-3 w-3" />
+                <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                  <Calendar className="size-3" />
                   {formatDate(article.publishedAt)}
                 </span>
               </div>
 
-              <h2 className="font-serif text-3xl lg:text-4xl font-light leading-tight mb-4 text-balance group-hover:text-primary transition-colors">
+              <h2 className="mb-4 font-serif text-2xl font-light leading-snug text-balance transition-colors group-hover:text-primary sm:text-3xl lg:text-4xl">
                 {article.title}
               </h2>
 
-              <p className="text-muted-foreground leading-relaxed mb-6 text-pretty">
+              <p className="mb-6 leading-relaxed text-muted-foreground text-pretty">
                 {article.description || t('dashboard.noDescription')}
               </p>
             </div>
 
-            <div className="flex items-center justify-between pt-4 border-t border-border/50">
+            <div className="flex items-center justify-between border-t border-border/50 pt-4">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <User className="h-4 w-4" />
+                <User className="size-4" />
                 <span>{article.author || t('dashboard.unknownAuthor')}</span>
               </div>
 
@@ -73,7 +74,7 @@ export function NewsCard({ article, featured = false }: NewsCardProps) {
                 className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
               >
                 {t('common.readMore')}
-                <ExternalLink className="h-4 w-4" />
+                <ExternalLink className="size-4" />
               </a>
             </div>
           </div>
@@ -83,41 +84,41 @@ export function NewsCard({ article, featured = false }: NewsCardProps) {
   }
 
   return (
-    <Card className="overflow-hidden border-border/50 hover:border-primary/50 transition-all duration-300 group h-full flex flex-col">
-      <div className="relative h-48 overflow-hidden">
+    <Card className="flex h-full flex-col overflow-hidden border-border/50 transition-all duration-300 hover:border-primary/50 group">
+      <div className="relative aspect-video overflow-hidden">
         <Image
           src={article.urlToImage || '/placeholder.svg'}
           alt={article.title}
           fill
-          className="object-cover group-hover:scale-105 transition-transform duration-500"
-          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
       </div>
 
-      <div className="p-6 flex flex-col flex-1">
-        <div className="flex items-center gap-2 mb-3">
+      <div className="flex flex-1 flex-col p-5 sm:p-6">
+        <div className="mb-3 flex flex-wrap items-center gap-2">
           <Badge variant="outline" className="text-xs">
             {article.source.name}
           </Badge>
-          <span className="text-xs text-muted-foreground flex items-center gap-1">
-            <Calendar className="h-3 w-3" />
+          <span className="flex items-center gap-1 text-xs text-muted-foreground">
+            <Calendar className="size-3" />
             {formatDate(article.publishedAt)}
           </span>
         </div>
 
-        <h3 className="font-serif text-xl font-light leading-tight mb-3 text-balance group-hover:text-primary transition-colors line-clamp-2">
+        <h3 className="mb-3 font-serif text-lg font-light leading-snug text-balance transition-colors group-hover:text-primary sm:text-xl">
           {article.title}
         </h3>
 
-        <p className="text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-3 flex-1">
+        <p className="mb-4 flex-1 text-sm leading-relaxed text-muted-foreground">
           {article.description || t('dashboard.noDescription')}
         </p>
 
-        <div className="flex items-center justify-between pt-4 border-t border-border/50 mt-auto">
+        <div className="mt-auto flex items-center justify-between border-t border-border/50 pt-4">
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
-            <User className="h-3 w-3" />
-            <span className="truncate">
+            <User className="size-3" />
+            <span className="max-w-[140px] truncate">
               {article.author || t('dashboard.unknownAuthor')}
             </span>
           </div>
@@ -129,7 +130,7 @@ export function NewsCard({ article, featured = false }: NewsCardProps) {
             className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
           >
             {t('common.read')}
-            <ExternalLink className="h-3 w-3" />
+            <ExternalLink className="size-3" />
           </a>
         </div>
       </div>

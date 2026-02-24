@@ -1,12 +1,41 @@
 import type { NewsResponse, NewsParams } from "@/types/news"
 
 const NEWS_API_KEY = process.env.NEXT_PUBLIC_NEWS_API_KEY ?? ""
-const NEWS_API_BASE_URL = process.env.NEXT_PUBLIC_NEWS_API_URL ?? "https://newsapi.org/v2"
+const NEWS_API_BASE_URL =
+  process.env.NEXT_PUBLIC_NEWS_API_URL ?? "https://newsapi.org/v2"
+
+export const CATEGORY_QUERY_MAP: Record<string, string> = {
+  breaking: "breaking news",
+  headlines: "headlines",
+  world: "world",
+  local: "local news",
+  football: "football soccer",
+  basketball: "basketball NBA",
+  tennis: "tennis ATP",
+  f1: "formula 1 racing",
+  markets: "stock market economy",
+  stocks: "stocks trading",
+  crypto: "cryptocurrency bitcoin",
+  finance: "personal finance",
+  ai: "artificial intelligence",
+  gadgets: "gadgets devices",
+  startups: "startups tech",
+  apps: "mobile apps",
+  movies: "movies cinema",
+  music: "music industry",
+  gaming: "video games gaming",
+  celebrities: "celebrities entertainment",
+  science: "science research",
+  health: "health medicine",
+  politics: "politics government",
+  technology: "technology",
+}
 
 export class NewsAPIService {
   private static async fetchFromAPI(
     endpoint: string,
-    params: Record<string, string>
+    params: Record<string, string>,
+    revalidate = 300
   ): Promise<NewsResponse> {
     const url = new URL(`${NEWS_API_BASE_URL}${endpoint}`)
 
@@ -20,7 +49,7 @@ export class NewsAPIService {
 
     const response = await fetch(url.toString(), {
       headers: { "User-Agent": "NewsApp/1.0" },
-      cache: "no-store",
+      next: { revalidate },
     })
 
     if (!response.ok) {
@@ -58,23 +87,19 @@ export class NewsAPIService {
     return this.fetchFromAPI("/top-headlines", searchParams)
   }
 
-  static async getTechNews(language = "pt"): Promise<NewsResponse> {
+  static async getNewsByCategory(
+    category: string,
+    language = "pt"
+  ): Promise<NewsResponse> {
+    const query = CATEGORY_QUERY_MAP[category] ?? category
     return this.getEverything({
-      q: "tecnologia",
-      domains: "globo.com,estadao.com",
+      q: query,
       language,
       sortBy: "publishedAt",
     })
   }
 
-  static async getNewsByCategory(
-    category: string,
-    language = "pt"
-  ): Promise<NewsResponse> {
-    return this.getEverything({
-      q: category,
-      language,
-      sortBy: "publishedAt",
-    })
+  static async getTechNews(language = "pt"): Promise<NewsResponse> {
+    return this.getNewsByCategory("technology", language)
   }
 }

@@ -3,13 +3,22 @@ import { NewsAPIService } from '@/http/news-api'
 import { DashboardHeader } from '@/features/dashboard/components/dashboard-header'
 import { DashboardError } from '@/features/dashboard/components/dashboard-error'
 
-export async function NewsPage() {
+interface NewsPageProps {
+  category?: string
+  query?: string
+}
+
+export async function NewsPage({
+  category = 'technology',
+  query
+}: NewsPageProps) {
   try {
-    const newsResponse = await NewsAPIService.getTechNews()
+    const searchTerm = query ?? category
+    const newsResponse = await NewsAPIService.getNewsByCategory(searchTerm)
 
     return (
       <main className="container mx-auto px-4 py-8 lg:py-12">
-        <DashboardHeader />
+        <DashboardHeader category={category} />
         <NewsList articles={newsResponse.articles} />
       </main>
     )
