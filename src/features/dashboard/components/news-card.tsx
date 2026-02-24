@@ -3,6 +3,7 @@
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { ExternalLink, Calendar, User } from 'lucide-react'
+import Image from 'next/image'
 import type { NewsArticle } from '@/types/news'
 import { useI18n } from '@/i18n/i18n-provider'
 
@@ -28,10 +29,12 @@ export function NewsCard({ article, featured = false }: NewsCardProps) {
       <Card className="overflow-hidden border-border/50 hover:border-primary/50 transition-all duration-300 group">
         <div className="grid lg:grid-cols-2 gap-0">
           <div className="relative h-64 lg:h-full overflow-hidden">
-            <img
+            <Image
               src={article.urlToImage || '/placeholder.svg'}
               alt={article.title}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-500"
+              sizes="(max-width: 1024px) 100vw, 50vw"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
           </div>
@@ -82,10 +85,12 @@ export function NewsCard({ article, featured = false }: NewsCardProps) {
   return (
     <Card className="overflow-hidden border-border/50 hover:border-primary/50 transition-all duration-300 group h-full flex flex-col">
       <div className="relative h-48 overflow-hidden">
-        <img
+        <Image
           src={article.urlToImage || '/placeholder.svg'}
           alt={article.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-500"
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
       </div>
