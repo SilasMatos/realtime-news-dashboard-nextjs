@@ -1,15 +1,5 @@
-import React from 'react'
-import NewsPage from '@/feactures/dashboard/page'
+import { NewsPage } from '@/features/dashboard/page'
 
-
-function PageHome() {
-  return (
-  <>
-  
-  <NewsPage />
-  
-  </>
-  )
+export default async function DashboardPage() {
+  return <NewsPage />
 }
-
-export default PageHome

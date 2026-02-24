@@ -1,4 +1,4 @@
-import { Navbar } from "@/components/navbar-app"
+import { Navbar } from '@/components/navbar-app'
 
 export default function PrivateLayout({
   children
@@ -6,13 +6,9 @@ export default function PrivateLayout({
   children: React.ReactNode
 }) {
   return (
-
-        <div className="flex h-screen flex-col bg-[#f2f2f2]">
-    
-          <Navbar />
-            {children}
-     
-        </div>
-
+    <div className="flex h-screen flex-col bg-background">
+      <Navbar />
+      {children}
+    </div>
   )
 }

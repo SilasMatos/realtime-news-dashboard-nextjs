@@ -1,38 +1,38 @@
-// src/hooks/useAuth.ts
-import { useMutation, UseMutationOptions } from '@tanstack/react-query'
-import { Login, Register, Logout } from '@/services/mutations'
-import { useRouter } from 'next/navigation'
-import { RegisterMutation, LoginMutation } from '@/types/mutations-types'
-
-
-
+import { useMutation } from "@tanstack/react-query"
+import type { UseMutationOptions } from "@tanstack/react-query"
+import { login, register, logout } from "@/http/mutations"
+import type { RegisterMutation, LoginMutation } from "@/types/mutations-types"
 
 export function useLogin(
-  options?: UseMutationOptions<any, Error, LoginMutation>
+  options?: UseMutationOptions<unknown, Error, LoginMutation>
 ) {
   return useMutation({
-    mutationKey: ['login'],
-    mutationFn: (payload: LoginMutation) => Login(payload),
+    mutationKey: ["login"],
+    mutationFn: (payload: LoginMutation) => login(payload),
     retry: 0,
-    ...options
+    ...options,
   })
 }
 
-export const useRegister = (options?: UseMutationOptions<any, Error, LoginMutation>) => {
+export function useRegister(
+  options?: UseMutationOptions<unknown, Error, RegisterMutation>
+) {
   return useMutation({
-    mutationKey: ['login'],
-    mutationFn: (payload: LoginMutation) => Login(payload),
+    mutationKey: ["register"],
+    mutationFn: (payload: RegisterMutation) => register(payload),
     retry: 0,
-    ...options
+    ...options,
   })
 }
 
-export const useLogout = (options?: UseMutationOptions<any, Error>) => {
+export function useLogout(
+  options?: UseMutationOptions<unknown, Error>
+) {
   return useMutation({
-    mutationKey: ['login'],
-    mutationFn: () => Logout(),
+    mutationKey: ["logout"],
+    mutationFn: () => logout(),
     retry: 0,
-    ...options
+    ...options,
   })
 }
 

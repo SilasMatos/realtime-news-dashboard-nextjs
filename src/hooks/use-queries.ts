@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
-import { getNews } from "@/services/queries";
-import type { NewsParams, NewsResponse } from "@/types/news";
+import { useQuery } from "@tanstack/react-query"
+import { getNews } from "@/http/queries"
+import type { NewsParams, NewsResponse } from "@/types/news"
 
 export function useNews(params: NewsParams) {
   return useQuery<NewsResponse>({
@@ -9,5 +9,5 @@ export function useNews(params: NewsParams) {
     enabled: !!params.q,
     staleTime: 5 * 60 * 1000,
     refetchOnWindowFocus: false,
-  });
+  })
 }

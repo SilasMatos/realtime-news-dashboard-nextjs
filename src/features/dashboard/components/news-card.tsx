@@ -1,7 +1,10 @@
-import { Card } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { ExternalLink, Calendar, User } from "lucide-react"
-import { NewsArticle } from "@/types/news"
+'use client'
+
+import { Card } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { ExternalLink, Calendar, User } from 'lucide-react'
+import type { NewsArticle } from '@/types/news'
+import { useI18n } from '@/i18n/i18n-provider'
 
 interface NewsCardProps {
   article: NewsArticle
@@ -9,12 +12,14 @@ interface NewsCardProps {
 }
 
 export function NewsCard({ article, featured = false }: NewsCardProps) {
+  const { t, locale } = useI18n()
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
-    return date.toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
+    return date.toLocaleDateString(locale, {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
     })
   }
 
@@ -24,7 +29,7 @@ export function NewsCard({ article, featured = false }: NewsCardProps) {
         <div className="grid lg:grid-cols-2 gap-0">
           <div className="relative h-64 lg:h-full overflow-hidden">
             <img
-              src={article.urlToImage || "/placeholder.svg"}
+              src={article.urlToImage || '/placeholder.svg'}
               alt={article.title}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
@@ -47,13 +52,15 @@ export function NewsCard({ article, featured = false }: NewsCardProps) {
                 {article.title}
               </h2>
 
-              <p className="text-muted-foreground leading-relaxed mb-6 text-pretty">{article.description || 'Descrição não disponível'}</p>
+              <p className="text-muted-foreground leading-relaxed mb-6 text-pretty">
+                {article.description || t('dashboard.noDescription')}
+              </p>
             </div>
 
             <div className="flex items-center justify-between pt-4 border-t border-border/50">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <User className="h-4 w-4" />
-                <span>{article.author || 'Autor não informado'}</span>
+                <span>{article.author || t('dashboard.unknownAuthor')}</span>
               </div>
 
               <a
@@ -62,7 +69,7 @@ export function NewsCard({ article, featured = false }: NewsCardProps) {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
               >
-                Read more
+                {t('common.readMore')}
                 <ExternalLink className="h-4 w-4" />
               </a>
             </div>
@@ -76,7 +83,7 @@ export function NewsCard({ article, featured = false }: NewsCardProps) {
     <Card className="overflow-hidden border-border/50 hover:border-primary/50 transition-all duration-300 group h-full flex flex-col">
       <div className="relative h-48 overflow-hidden">
         <img
-          src={article.urlToImage || "/placeholder.svg"}
+          src={article.urlToImage || '/placeholder.svg'}
           alt={article.title}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
@@ -98,12 +105,16 @@ export function NewsCard({ article, featured = false }: NewsCardProps) {
           {article.title}
         </h3>
 
-        <p className="text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-3 flex-1">{article.description || 'Descrição não disponível'}</p>
+        <p className="text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-3 flex-1">
+          {article.description || t('dashboard.noDescription')}
+        </p>
 
         <div className="flex items-center justify-between pt-4 border-t border-border/50 mt-auto">
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <User className="h-3 w-3" />
-            <span className="truncate">{article.author || 'Autor não informado'}</span>
+            <span className="truncate">
+              {article.author || t('dashboard.unknownAuthor')}
+            </span>
           </div>
 
           <a
@@ -112,7 +123,7 @@ export function NewsCard({ article, featured = false }: NewsCardProps) {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
           >
-            Read
+            {t('common.read')}
             <ExternalLink className="h-3 w-3" />
           </a>
         </div>
